@@ -1,15 +1,18 @@
-import knex from "knex";
+const  knex = require("knex") ;
+const  dotenv = require("dotenv") ;
+
+
+dotenv.config();
 
 const db = knex({
     client:'pg',
     connection: {
-      host:'topsy.db.elephantsql.com',
-      port:'5432',
-      user:'scghtmju',
-      password:'ITETe-U2ETf1-Vl8xmnNHMd6NKi81JUG',
-      database:'scghtmju'
+      host:process.env.DB_HOST,
+      port:process.env.DB_PORT,
+      user:process.env.DB_USER_DATABASE,
+      password:process.env.DB_PASSWORD,
+      database:process.env.DB_USER_DATABASE
     }
   })
   
-  // module.exports = db
-  export default db
+ module.exports ={db} ;
