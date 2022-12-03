@@ -1,0 +1,10 @@
+Front-end:(with react)
+-login/register for patients
+-call an appointment with a Dr
+-view all doctors details (maybe be ablr to search a doctor)
+-view all my past/future appointments
+
+Back-end:
+-server, with express
+-connect to the database with knex
+-
