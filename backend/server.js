@@ -61,7 +61,50 @@ app.get('/myAppointments/:id', (req, res) => {
 })
 
 //add a new doctor
-app.post('/api/doctors',(req,res)=>{
-    
+app.post('/api/doctors', (req, res) => {
+    const { dr_password, dr_username, dr_first_name, dr_last_name, specialization, dr_gender, dr_email, dr_phone } = req.body
+    db('doctors')
+    .insert({
+        dr_password,
+        dr_username,
+        dr_first_name,
+        dr_last_name,
+        specialization,
+        dr_gender,
+        dr_email,
+        dr_phone
+    })
+    .returning('*')
+    .then(rows=>{
+        res.json(rows)
+    })
+    .catch(e=>{
+        console.log(e);
+        res.status(404).json({msg:e.message})
+    })
 })
 
+//add a new patient
+app.post('/api/patients', (req, res) => {
+    const { p_password, p_username, p_first_name, p_last_name,  p_gender,p_address,p_birth_date, p_email, p_phone } = req.body
+    db('patients')
+    .insert({
+        p_password,
+        p_username,
+        p_first_name,
+        p_last_name,
+        p_gender,
+        p_address,
+        p_birth_date,
+         p_email, 
+         p_phone
+    })
+    .returning('*')
+    .then(rows=>{
+        res.json(rows)
+    })
+    .catch(e=>{
+        console.log(e);
+        res.status(404).json({msg:e.message})
+    })
+})
