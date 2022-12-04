@@ -30,10 +30,10 @@ app.get('/api/patients', (req, res) => {
 
 //get one patient details by id
 app.get('/api/patients/:id', (req, res) => {
-    const {id}=req.params;
+    const { id } = req.params;
     db('patients')
         .select('*')
-        .where({p_id:id})
+        .where({ p_id: id })
         .then(rows => {
             res.json(rows)
         })
@@ -56,10 +56,10 @@ app.get('/api/doctors', (req, res) => {
 
 //get one doctor details by id
 app.get('/api/doctors/:id', (req, res) => {
-    const {id}=req.params;
+    const { id } = req.params;
     db('doctors')
         .select('*')
-        .where({dr_id:id})
+        .where({ dr_id: id })
         .then(rows => {
             res.json(rows)
         })
@@ -159,7 +159,7 @@ app.post('/myAppointments', (req, res) => {
 })
 
 //add specialization
-app.post('/api/specializations',(req,res)=>{
+app.post('/api/specializations', (req, res) => {
     const { spe_name } = req.body;
     db('specializations')
         .insert({
@@ -176,113 +176,134 @@ app.post('/api/specializations',(req,res)=>{
 })
 
 //update patient details
-app.put('/api/patients/:id',(req,res)=>{
-    const {id}=req.params;
+app.put('/api/patients/:id', (req, res) => {
+    const { id } = req.params;
     db('patients')
-    .update(req.body)
-    .where({p_id:id})
-    .returning('*')
-    .then(rows=>{
-        res.json(rows)
-    })
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message});
-    })
+        .update(req.body)
+        .where({ p_id: id })
+        .returning('*')
+        .then(rows => {
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message });
+        })
 })
 
 //update doctors details
-app.put('/api/doctors/:id',(req,res)=>{
-    const {id}=req.params;
+app.put('/api/doctors/:id', (req, res) => {
+    const { id } = req.params;
     db('doctors')
-    .update(req.body)
-    .where({dr_id:id})
-    .returning('*')
-    .then(rows=>{
-        res.json(rows)
-    })
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message});
-    })
+        .update(req.body)
+        .where({ dr_id: id })
+        .returning('*')
+        .then(rows => {
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message });
+        })
 })
 
 //update an appointment
-app.put('/myAppointments/:id',(req,res)=>{
-    const {id}=req.params;
+app.put('/myAppointments/:id', (req, res) => {
+    const { id } = req.params;
     db('appointments')
-    .update(req.body)
-    .where({appointment_id:id})
-    .returning('*')
-    .then(rows=>{
-        res.json(rows)
-    })
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message});
-    })
+        .update(req.body)
+        .where({ appointment_id: id })
+        .returning('*')
+        .then(rows => {
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message });
+        })
 })
 
 //delete a patient
-app.delete('/api/patients/:id',(req,res)=>{
-    const {id}=req.params;
+app.delete('/api/patients/:id', (req, res) => {
+    const { id } = req.params;
     db('patients')
-    .where({p_id:id})
-    .del()
-    .returning('*')
-    .then(rows=>{
-        res.json(rows)
-    })
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message})
-    })
+        .where({ p_id: id })
+        .del()
+        .returning('*')
+        .then(rows => {
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message })
+        })
 })
 
 //delete a doctor
-app.delete('/api/doctors/:id',(req,res)=>{
-    const {id}=req.params;
+app.delete('/api/doctors/:id', (req, res) => {
+    const { id } = req.params;
     db('doctors')
-    .where({dr_id:id})
-    .del()
-    .returning('*')
-    .then(rows=>{
-        res.json(rows)
-    })
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message})
-    })
+        .where({ dr_id: id })
+        .del()
+        .returning('*')
+        .then(rows => {
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message })
+        })
 })
 
 //delete an appointment
-app.delete('/myAppointments/:id',(req,res)=>{
-    const {id}=req.params;
+app.delete('/myAppointments/:id', (req, res) => {
+    const { id } = req.params;
     db('appointments')
-    .where({appointment_id:id})
-    .del()
-    .returning('*')
-    .then(rows=>{
-        res.json(rows)
-    })
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message})
-    })
+        .where({ appointment_id: id })
+        .del()
+        .returning('*')
+        .then(rows => {
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message })
+        })
 })
 
 //delete a specialization
-app.delete('/api/specializations/:id',(req,res)=>{
-    const {id}=req.params;
+app.delete('/api/specializations/:id', (req, res) => {
+    const { id } = req.params;
     db('specializations')
-    .where({spe_id:id})
-    .del()
-    .returning('*')
-    .then(rows=>{
-        res.json(rows)
-    })
-    .catch(e=>{
-        console.log(e);
-        res.status(404).json({msg:e.message})
-    })
+        .where({ spe_id: id })
+        .del()
+        .returning('*')
+        .then(rows => {
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message })
+        })
+})
+
+//api for login
+app.post('/api/login', (req, res) => {
+    const { username, password } = req.body
+    db('patients')
+        .where({
+            p_username: username,
+            p_password: password
+        })
+        .select('*')
+        .then(rows => {
+            if (rows.length === 0) {
+                return res.status(404).json({ msg: 'not found' })
+            }
+            res.json(rows)
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({msg: e.message })
+        })
 })
