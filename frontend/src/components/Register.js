@@ -9,7 +9,6 @@ class Register extends React.Component{
     }
     addPatient=(e)=>{
         e.preventDefault();
-        console.log(e.target.p_first_name.value);
         const form=e.target;
         const patient={
             p_first_name:form.p_first_name.value,
@@ -21,7 +20,6 @@ class Register extends React.Component{
             p_birth_date:form.p_birth_date.value,
             p_email:form.p_email.value,
             p_phone:form.p_phone.value
-
         }
         fetch('http://localhost:5001/api/patients',{
             method:'POST',
