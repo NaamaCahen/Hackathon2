@@ -304,6 +304,29 @@ app.post('/api/login', (req, res) => {
         })
         .catch(e => {
             console.log(e);
-            res.status(404).json({msg: e.message })
+            res.status(404).json({ msg: e.message })
+        })
+})
+
+//checking if a selected hour and doctor is available 
+app.post('/isAvailable', (req, res) => {
+    const { dr_first_name, dr_last_name, time } = req.body
+    db('appointments')
+        .select('*')
+        .from('appointments')
+        .innerJoin('doctors', 'appointments.dr_id', 'doctors.dr_id')
+        .where('doctors.dr_first_name', dr_first_name)
+        .andWhere('doctors.dr_last_name', dr_last_name)
+        .andWhere('appointments.appointment_time', time)
+        .then(rows => {
+            if (rows.length !== 0) {
+                
+                return res.json({ msg: 'this doctor is unavailable on this time' })
+            }
+            res.json({ msg: 'available' })
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(404).json({ msg: e.message })
         })
 })
