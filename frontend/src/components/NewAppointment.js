@@ -57,7 +57,7 @@ class NewAppointment extends React.Component{
             <h1>New Appointment:</h1>
             <form on onSubmit={this.handleSubmit}>
                 <select>
-                    <option key='-1'>choose a doctor</option>
+                    <option key='-1' style={{display: "none"}}>choose a doctor</option>
                     {
                         this.state.doctors.map((item,i)=>{
                             return(
