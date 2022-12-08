@@ -4,7 +4,7 @@ class Register extends React.Component{
     constructor(){
         super()
         this.state={
-
+            
         }
     }
     addPatient=(e)=>{
@@ -28,6 +28,11 @@ class Register extends React.Component{
             },
             body: JSON.stringify(patient)
         })
+        .then(res=>res.json())
+        .then(data=>{
+            window.localStorage.setItem('current',JSON.stringify(data[0]));
+        })
+        .catch(e=>console.log(e))
     }
     render(){
         return(

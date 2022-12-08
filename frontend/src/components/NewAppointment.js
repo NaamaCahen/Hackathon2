@@ -1,4 +1,5 @@
 import React from "react";
+// import currentpatient from "../patient";
 
 class NewAppointment extends React.Component {
     constructor(props) {
@@ -7,7 +8,7 @@ class NewAppointment extends React.Component {
             doctors: [],
             hours: [],
             minutes: [],
-            currentPatient:props.patient
+            currentPatient: JSON.parse(localStorage.getItem('current'))
         }
     }
     componentDidMount = () => {
@@ -32,28 +33,7 @@ class NewAppointment extends React.Component {
         }
         this.setState({ hours: arrHours, minutes: arrMinutes })
     }
-    componentDidUpdate=()=>{
-        fetch(`http://localhost:5001/api/doctors`)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({ doctors: data })
-            })
-            .catch(e => {
-                console.log(e);
-            })
-
-        const arrHours = []
-        for (let i = 9, j = 0; i <= 20; i++) {
-            arrHours[j] = i;
-            j++;
-        }
-        const arrMinutes = [];
-        for (let i = 0, j = 0; i < 60; i += 15) {
-            arrMinutes[j] = i;
-            j++;
-        }
-        this.setState({ hours: arrHours, minutes: arrMinutes })
-    }
+   
     getMinMaxDates() {
 
         //getting the current tomorrow date and converting it to a string in format:yyyy-mm-dd
@@ -114,47 +94,47 @@ class NewAppointment extends React.Component {
             })
     }
     addAppointment(appointment) {
-        const dr_id=this.getDoctorId(appointment.dr_first_name,appointment.dr_last_name);
-        const newAppointment={
-            dr_id,
-            p_id:currentPatient.id ,
-            appointment_time:appointment.time,
+        console.log(this.state.currentPatient);
+        let id;
+        const firstLast = {
+            dr_first_name: appointment.dr_first_name,
+            dr_last_name: appointment.dr_last_name
         }
-        fetch('http://localhost:5001/myAppointments', {
+        console.log(firstLast);
+        fetch('http://localhost:5001/api/doctors/getId/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newAppointment)
-
-        })
-        this.setState({
-            doctors: [],
-            hours: [],
-            minutes: []
-        })
-    }
-    getDoctorId(first,last){
-        const firstLast={
-            first,
-            last
-        }
-        fetch('http://localhost:5001/api/doctors/getId/',{
-            method:'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(firstLast)
         })
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data.id);
-            return data.id
-        })
-        .catch(e=>{
-            console.log(e);
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data[0].dr_id);
+                id = data[0].dr_id
+                fetch('http://localhost:5001/myAppointments', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dr_id: id,
+                        p_id: this.state.currentPatient.p_id,
+                        appointment_time: appointment.time,
+                    })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        alert(`done!\n your appointment with Dr ${firstLast.dr_first_name} ${firstLast.dr_last_name} will be on: ${appointment.time}`)
+                    })
+                    .catch(e => console.log(e))
+            })
+            .catch(e => {
+                console.log(e);
+            })
     }
+    
 
     render() {
         const { nextDay, maxDate } = this.getMinMaxDates();
