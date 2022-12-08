@@ -20,20 +20,20 @@ class NewAppointment extends React.Component {
             .catch(e => {
                 console.log(e);
             })
-
-        const arrHours = []
-        for (let i = 9, j = 0; i <= 20; i++) {
-            arrHours[j] = i;
-            j++;
-        }
-        const arrMinutes = [];
-        for (let i = 0, j = 0; i < 60; i += 15) {
-            arrMinutes[j] = i;
-            j++;
-        }
-        this.setState({ hours: arrHours, minutes: arrMinutes })
+            
+            const arrHours = []
+            for (let i = 9, j = 0; i <= 20; i++) {
+                arrHours[j] = i;
+                j++;
+            }
+            const arrMinutes = [];
+            for (let i = 0, j = 0; i < 60; i += 15) {
+                arrMinutes[j] = i;
+                j++;
+            }
+            this.setState({ hours: arrHours, minutes: arrMinutes })
     }
-   
+
     getMinMaxDates() {
 
         //getting the current tomorrow date and converting it to a string in format:yyyy-mm-dd
@@ -134,7 +134,7 @@ class NewAppointment extends React.Component {
                 console.log(e);
             })
     }
-    
+
 
     render() {
         const { nextDay, maxDate } = this.getMinMaxDates();
