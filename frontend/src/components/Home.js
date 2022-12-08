@@ -4,6 +4,7 @@ import Register from "./Register";
 import Login from "./Login";
 import Welcome from "./Welcome";
 import NewAppointment from "./NewAppointment";
+import ViewMyAppointments from "./ViewMyAppointments";
 
 
 
@@ -24,7 +25,8 @@ class Home extends React.Component {
                     <Route path='/login' element={<Login />} />
                      <Route path='/' element={<Welcome />}/>
                 </Routes>
-                <NewAppointment/>
+                {/* <NewAppointment/> */}
+                <ViewMyAppointments/>
             </>
 
             )

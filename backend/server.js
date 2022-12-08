@@ -72,7 +72,9 @@ app.get('/api/doctors/:id', (req, res) => {
 app.get('/myAppointments/:id', (req, res) => {
     const { id } = req.params;
     db('appointments')
-        .select('appointment_id', 'dr_id', 'p_id', 'appointment_time')
+        .from('appointments')
+        .innerJoin('doctors', 'appointments.dr_id', 'doctors.dr_id')
+        .select('appointment_id', 'appointments.dr_id', 'p_id', 'appointment_time', 'doctors.dr_first_name', 'doctors.dr_last_name')
         .where({ p_id: id })
         .then(rows => {
             if (rows.length === 0) {
@@ -332,7 +334,7 @@ app.post('/isAvailable', (req, res) => {
 })
 
 //posting the first and last name of th edoctor and getting hus id
-app.post('/api/doctors/getId/', (req, res)=>{
+app.post('/api/doctors/getId/', (req, res) => {
     const { dr_first_name, dr_last_name } = req.body;
     db('doctors')
         .select('dr_id')
@@ -340,11 +342,12 @@ app.post('/api/doctors/getId/', (req, res)=>{
             dr_first_name,
             dr_last_name
         })
-        .then(rows =>{
-            if(rows.length===0){
-                res.json({msg:'not found'})
+        .then(rows => {
+            if (rows.length === 0) {
+                res.json({ msg: 'not found' })
             }
-            res.json(rows)} )
+            res.json(rows)
+        })
         .catch(e => {
             res.status(404).json({ msg: e.message })
         })
