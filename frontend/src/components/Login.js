@@ -25,8 +25,7 @@ class Login extends React.Component {
             .then(data => {
                 console.log(data);
                 window.localStorage.setItem('current',JSON.stringify(data[0]))
-                // //send the id to the patient.js file that will fetch the user and save it during the process
-                // fetchPatient(data[0].p_id);
+               
             })
             .catch(e => console.log(e));
     }
