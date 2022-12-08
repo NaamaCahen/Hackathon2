@@ -320,13 +320,32 @@ app.post('/isAvailable', (req, res) => {
         .andWhere('appointments.appointment_time', time)
         .then(rows => {
             if (rows.length !== 0) {
-                
+
                 return res.json({ msg: 'this doctor is unavailable on this time' })
             }
             res.json({ msg: 'available' })
         })
         .catch(e => {
             console.log(e);
+            res.status(404).json({ msg: e.message })
+        })
+})
+
+//posting the first and last name of th edoctor and getting hus id
+app.post('/api/doctors/getId/', (req, res)=>{
+    const { dr_first_name, dr_last_name } = req.body;
+    db('doctors')
+        .select('dr_id')
+        .where({
+            dr_first_name,
+            dr_last_name
+        })
+        .then(rows =>{
+            if(rows.length===0){
+                res.json({msg:'not found'})
+            }
+            res.json(rows)} )
+        .catch(e => {
             res.status(404).json({ msg: e.message })
         })
 })
