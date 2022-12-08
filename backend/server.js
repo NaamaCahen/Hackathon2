@@ -68,14 +68,17 @@ app.get('/api/doctors/:id', (req, res) => {
         })
 })
 
-//get all my appointments
+//get all my future appointments ordered by date
 app.get('/myAppointments/:id', (req, res) => {
     const { id } = req.params;
+    const today=new Date();
     db('appointments')
         .from('appointments')
         .innerJoin('doctors', 'appointments.dr_id', 'doctors.dr_id')
         .select('appointment_id', 'appointments.dr_id', 'p_id', 'appointment_time', 'doctors.dr_first_name', 'doctors.dr_last_name')
         .where({ p_id: id })
+        .andWhere('appointment_time','>','today')
+        .orderBy('appointments.appointment_time')
         .then(rows => {
             if (rows.length === 0) {
                 return res.status(404).json({ msg: 'not found' })
