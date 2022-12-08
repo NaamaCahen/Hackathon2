@@ -1,5 +1,4 @@
 import React from "react";
-import { fetchPatient } from "../patient";
 
 class Login extends React.Component {
     constructor() {
