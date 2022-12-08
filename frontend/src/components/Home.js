@@ -25,7 +25,7 @@ class Home extends React.Component {
                     <Route path='/login' element={<Login />} />
                      <Route path='/' element={<Welcome />}/>
                 </Routes>
-                {/* <NewAppointment/> */}
+                <NewAppointment/> 
                 <ViewMyAppointments/>
             </>
 
