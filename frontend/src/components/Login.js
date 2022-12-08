@@ -1,15 +1,16 @@
 import React from "react";
+import { fetchPatient } from "../patient";
 
 class Login extends React.Component {
     constructor() {
         super();
         this.state = {
-            current:[]
+            current: []
         }
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        const patient= {
+        const patient = {
             username: e.target.username.value,
             password: e.target.password.value
         }
@@ -19,16 +20,16 @@ class Login extends React.Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(patient)
+            body: JSON.stringify(patient)
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                this.setState({ current: data});
-                console.log(this.state.current);
+                window.localStorage.setItem('current',JSON.stringify(data[0]))
+                // //send the id to the patient.js file that will fetch the user and save it during the process
+                // fetchPatient(data[0].p_id);
             })
             .catch(e => console.log(e));
-        
     }
     render() {
         return (
