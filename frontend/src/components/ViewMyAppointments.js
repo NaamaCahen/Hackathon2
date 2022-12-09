@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewAppointment from './NewAppointment'
+import AppointmentList from './AppointmentList'
 
 export class ViewMyAppointments extends Component {
     constructor(props) {
@@ -25,23 +26,9 @@ export class ViewMyAppointments extends Component {
     //     console.log(`edit!!`);
 
     // }
-     handleDelete =(id) =>{       
-        fetch(`http://localhost:5001/myAppointments/${id}`, {
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                alert(`the appointment was deleted. \n Thank You!`)
-                let appointmentList=this.state.appointments
-                .filter((item)=>{
-                    console.log(item,id);
-                   return item.appointment_id!==id})
-                console.log(appointmentList);
-                this.setState({ appointments:appointmentList})
-            })
-            .catch(e => console.log(e))
-    }
+     handleDelete=(appointmentList)=>{
+        this.setState({appointments:appointmentList})
+     }
 
     addAppointment=(appointment)=>{
         this.setState({appointments:[...this.state.appointments,appointment]})
@@ -51,28 +38,13 @@ export class ViewMyAppointments extends Component {
             return (
                 <>
                     <NewAppointment addAppointment={this.addAppointment}/>
-                    {
-                        this.state.appointments.map((item, i) => {
-                            return (
-                                <div key={i} id={item.appointment_id}>
-                                    <h4>Dr. {item.dr_last_name}  {item.dr_first_name}</h4>
-                                    <p>{item.appointment_time.split('T')[0]}</p>
-                                    <p>{item.appointment_time.split('T')[1].slice(0, 5)}</p>
-                                    {/* <button onClick={this.handleEdit}>edit</button> */}
-                                    <button onClick={()=>this.handleDelete(item.appointment_id)}>delete</button>
-                                </div>
-                            )
-                        })
-
-                    }
-
+                    <AppointmentList handleDelete={this.handleDelete} parentAppointments={this.state.appointments}/>
                 </>
             )
         } else {
             return (
-
                 <>
-                    <NewAppointment />
+                    <NewAppointment addAppointment={this.addAppointment}/>
                     <h3>no future appointments found...</h3>
                 </>
             )
