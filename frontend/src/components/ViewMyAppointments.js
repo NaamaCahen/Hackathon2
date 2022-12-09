@@ -37,6 +37,7 @@ export class ViewMyAppointments extends Component {
         if (this.state.appointments.length) {
             return (
                 <>
+                    <p className='b'>hello {this.state.currentPatient.p_first_name} </p>
                     <NewAppointment addAppointment={this.addAppointment}/>
                     <AppointmentList handleDelete={this.handleDelete} parentAppointments={this.state.appointments}/>
                 </>
@@ -44,8 +45,9 @@ export class ViewMyAppointments extends Component {
         } else {
             return (
                 <>
+                    <p className='b'>hello {this.state.currentPatient.p_first_name} </p>
                     <NewAppointment addAppointment={this.addAppointment}/>
-                    <h3>no future appointments found...</h3>
+                    <h2 className='green ma5'>no future appointments found...</h2>
                 </>
             )
         }
