@@ -80,9 +80,6 @@ app.get('/myAppointments/:id', (req, res) => {
         .andWhere('appointment_time','>','today')
         .orderBy('appointments.appointment_time')
         .then(rows => {
-            if (rows.length === 0) {
-                return res.status(404).json({ msg: 'not found' })
-            }
             res.json(rows)
         })
         .catch(e => {

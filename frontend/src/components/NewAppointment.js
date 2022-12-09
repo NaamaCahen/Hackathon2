@@ -35,7 +35,6 @@ class NewAppointment extends React.Component {
     }
 
     getMinMaxDates() {
-
         //getting the current tomorrow date and converting it to a string in format:yyyy-mm-dd
         let today = new Date()
         let nextDay = new Date(today);
@@ -126,6 +125,9 @@ class NewAppointment extends React.Component {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
+                        data[0].dr_first_name=appointment.dr_first_name;
+                        data[0].dr_last_name=appointment.dr_last_name;
+                        this.props.addAppointment(data[0]);
                         alert(`done!\n your appointment with Dr ${firstLast.dr_first_name} ${firstLast.dr_last_name} will be on: ${appointment.time}`)
                     })
                     .catch(e => console.log(e))
@@ -147,7 +149,7 @@ class NewAppointment extends React.Component {
                         {
                             this.state.doctors.map((item, i) => {
                                 return (
-                                    <option key={i}>
+                                    <option key={i} id={item.dr_id}>
                                         {item.dr_first_name} {item.dr_last_name}
                                     </option>
                                 )
