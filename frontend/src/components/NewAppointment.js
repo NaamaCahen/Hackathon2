@@ -20,18 +20,18 @@ class NewAppointment extends React.Component {
             .catch(e => {
                 console.log(e);
             })
-            
-            const arrHours = []
-            for (let i = 9, j = 0; i <= 20; i++) {
-                arrHours[j] = i;
-                j++;
-            }
-            const arrMinutes = [];
-            for (let i = 0, j = 0; i < 60; i += 15) {
-                arrMinutes[j] = i;
-                j++;
-            }
-            this.setState({ hours: arrHours, minutes: arrMinutes })
+
+        const arrHours = []
+        for (let i = 9, j = 0; i <= 20; i++) {
+            arrHours[j] = i;
+            j++;
+        }
+        const arrMinutes = [];
+        for (let i = 0, j = 0; i < 60; i += 15) {
+            arrMinutes[j] = i;
+            j++;
+        }
+        this.setState({ hours: arrHours, minutes: arrMinutes })
     }
 
     getMinMaxDates() {
@@ -125,8 +125,8 @@ class NewAppointment extends React.Component {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        data[0].dr_first_name=appointment.dr_first_name;
-                        data[0].dr_last_name=appointment.dr_last_name;
+                        data[0].dr_first_name = appointment.dr_first_name;
+                        data[0].dr_last_name = appointment.dr_last_name;
                         this.props.addAppointment(data[0]);
                         alert(`done!\n your appointment with Dr ${firstLast.dr_first_name} ${firstLast.dr_last_name} will be on: ${appointment.time}`)
                     })
@@ -142,9 +142,10 @@ class NewAppointment extends React.Component {
         const { nextDay, maxDate } = this.getMinMaxDates();
         return (
             <>
-                <h1>New Appointment:</h1>
-                <form on onSubmit={this.handleSubmit}>
-                    <select id='doctor' required >
+
+                <form className="bg-light-blue br-pill ma4 flex flex-column items-center dib w-40" onSubmit={this.handleSubmit}>
+                    <h1 className="green">New Appointment:</h1>
+                   <div className="ma3"> <select id='doctor' required >
                         <option key='-1' style={{ display: "none" }} ></option>
                         {
                             this.state.doctors.map((item, i) => {
@@ -174,8 +175,8 @@ class NewAppointment extends React.Component {
                                 )
                             })
                         }
-                    </select>
-                    <button type='submit'>done</button>
+                    </select></div>
+                    <button type='submit' className="bg-blue bn ma3 pa2 br-pill white">done</button>
                 </form>
             </>
         )
