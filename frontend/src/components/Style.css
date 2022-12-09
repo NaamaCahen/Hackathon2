@@ -1,0 +1,22 @@
+.centerDiv{
+    margin-top: 20vh;
+}
+.text-size{
+    font-size: 2em;
+}
+
+.login-form{
+    height: 50vh;
+    justify-content: center;
+    margin-top: 20vh;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.input{
+    padding: 2%;
+    margin: 1%;
+    width: 50%;
+}
+.register-form{
+
+}

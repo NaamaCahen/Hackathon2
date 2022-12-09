@@ -8,7 +8,7 @@ export class ViewMyAppointments extends Component {
         this.state = {
             currentPatient: JSON.parse(localStorage.getItem('current')),
             appointments: [],
-            edit:false
+            edit: false
         }
     }
     componentDidMount() {
@@ -17,28 +17,15 @@ export class ViewMyAppointments extends Component {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                if (data.msg === 'not found') {
-                    console.log('not found!');
-                }
-                else {
-                    this.setState({ appointments: data })
-                }
-
-            })
-    }
-    componentDidUpdate() {
-        fetch(`http://localhost:5001/myAppointments/${this.state.currentPatient.p_id}`)
-            .then(res => res.json())
-            .then(data => {
                 this.setState({ appointments: data })
-            })
+            }).catch(e => console.log(e))
     }
+  
     // handleEdit() {
     //     console.log(`edit!!`);
-        
+
     // }
-    handleDelete(e) {
-        const id = e.target.parentNode.id
+     handleDelete =(id) =>{       
         fetch(`http://localhost:5001/myAppointments/${id}`, {
             method: 'DELETE'
         })
@@ -46,14 +33,24 @@ export class ViewMyAppointments extends Component {
             .then(data => {
                 console.log(data)
                 alert(`the appointment was deleted. \n Thank You!`)
+                let appointmentList=this.state.appointments
+                .filter((item)=>{
+                    console.log(item,id);
+                   return item.appointment_id!==id})
+                console.log(appointmentList);
+                this.setState({ appointments:appointmentList})
             })
             .catch(e => console.log(e))
     }
+
+    addAppointment=(appointment)=>{
+        this.setState({appointments:[...this.state.appointments,appointment]})
+    }
     render() {
-        if (this.state.appointments.length !== 0) {
+        if (this.state.appointments.length) {
             return (
                 <>
-                    <NewAppointment/>
+                    <NewAppointment addAppointment={this.addAppointment}/>
                     {
                         this.state.appointments.map((item, i) => {
                             return (
@@ -62,25 +59,25 @@ export class ViewMyAppointments extends Component {
                                     <p>{item.appointment_time.split('T')[0]}</p>
                                     <p>{item.appointment_time.split('T')[1].slice(0, 5)}</p>
                                     {/* <button onClick={this.handleEdit}>edit</button> */}
-                                    <button onClick={this.handleDelete}>delete</button>
+                                    <button onClick={()=>this.handleDelete(item.appointment_id)}>delete</button>
                                 </div>
                             )
                         })
-                      
+
                     }
 
                 </>
             )
-        } else{
-            return(
-                
+        } else {
+            return (
+
                 <>
-                <NewAppointment/>
-                <h3>no future appointments found...</h3>
+                    <NewAppointment />
+                    <h3>no future appointments found...</h3>
                 </>
             )
         }
-       
+
 
     }
 }

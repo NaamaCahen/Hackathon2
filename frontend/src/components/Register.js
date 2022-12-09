@@ -1,4 +1,5 @@
 import React from 'react';
+import './Style.css'
 
 class Register extends React.Component{
     constructor(){
@@ -37,19 +38,20 @@ class Register extends React.Component{
     render(){
         return(
             <>
-                <form method='post' onSubmit={this.addPatient}>
+                <form onSubmit={this.addPatient} className="bg-light-green ma5 shadow-3  flex flex-column items-center">
                     <h2>Please fill in your personal details:</h2>
-                    <input type='text' required placeholder='first name' id='p_first_name'/>
-                    <input type='text' required placeholder='last name' id='p_last_name'/>
+                    <input className='ma2 pa1' type='text' required placeholder='first name' id='p_first_name'/>
+                    <input className='ma2 pa1'type='text' required placeholder='last name' id='p_last_name'/>
                     <input type='text' required placeholder='user name' id='p_username'/>
-                    <input type='text'  required placeholder='password' id='p_password'/>
-                    <input type='radio' required name='gender' id='male'/>male
-                    <input type='radio' required name='gender' id='female'/>female
-                    <input type='text'  placeholder='address' id='p_address'/>
+                    <input className='ma2 pa1'type='text'  required placeholder='password' id='p_password'/>
+                    
+                    <div><input type='radio' required name='gender' id='male'/>male</div>
+                    <div><input type='radio' required name='gender' id='female'/>female </div>
+                    <input className='ma2 pa1'type='text'  placeholder='address' id='p_address'/>
                     birth of date:<input type='date'  required placeholder='date of birth' id='p_birth_date'/>
-                    <input type='email' placeholder='email' required id='p_email'/>
-                    <input type='phone' placeholder='phone number' required id='p_phone'/>
-                    <button type='submit' >Register</button>
+                    <input className='ma2 pa1'type='email' placeholder='email' required id='p_email'/>
+                    <input className='ma2 pa1'type='phone' placeholder='phone number' required id='p_phone'/>
+                    <button type='submit' className='bg-blue bn white ma2 pa2' >Register</button>
                 </form>
             </>
         )
