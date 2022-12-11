@@ -289,7 +289,7 @@ app.delete('/api/specializations/:id', (req, res) => {
         })
 })
 
-//api for login
+//api for login and register checks if the user exists
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body
     db('patients')
@@ -300,7 +300,7 @@ app.post('/api/login', (req, res) => {
         .select('*')
         .then(rows => {
             if (rows.length === 0) {
-                return res.status(404).json({ msg: 'not found' })
+                return res.status(200).json({ msg: 'not found' })
             }
             res.json(rows)
         })
@@ -309,6 +309,8 @@ app.post('/api/login', (req, res) => {
             res.status(404).json({ msg: e.message })
         })
 })
+
+
 
 //checking if a selected hour and doctor is available 
 app.post('/isAvailable', (req, res) => {
