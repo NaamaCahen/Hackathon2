@@ -7,7 +7,7 @@ class Login extends React.Component {
         super();
         this.state = {
             current: [],
-            displayRegister:'none'
+            // displayRegister:'none'
         }
     }
     componentDidMount(){
@@ -33,7 +33,7 @@ class Login extends React.Component {
                 console.log(data);
                 if(data.msg==='not found'){
                     alert(`oops...\n we don't have your user in our system,\n please register before logging in. `)
-                    this.setState({displayRegister:'block'})
+                    // this.setState({displayRegister:'block'})
                 }else{
                     window.localStorage.setItem('current',JSON.stringify(data[0]))
                     document.getElementById('submit').click();

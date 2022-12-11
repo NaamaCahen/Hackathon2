@@ -6,7 +6,7 @@ class Register extends React.Component {
     constructor() {
         super()
         this.state = {
-            patients: []
+            // patients: []
         }
     }
     addPatient = (e) => {
@@ -23,39 +23,52 @@ class Register extends React.Component {
             p_email: form.p_email.value,
             p_phone: form.p_phone.value
         }
-        const exist = this.state.patients.filter((item) => {
-            return (patient.p_password) === (item.p_password) &&
-                patient.p_username === item.p_username;
-        });
-        if (exist.length !== 0) {
-            console.log(exist);
-            alert(`this user name and password are already in use.`)
-        } else {
-            fetch('http://localhost:5001/api/patients', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(patient)
+        //checks if the username and password are in use
+        fetch(`http://localhost:5001/api/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: form.p_username.value,
+                password: form.p_password.value
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    window.localStorage.setItem('current', JSON.stringify(data[0]));
-                    document.getElementById('submit').click();
-                })
-                .catch(e => console.log(e))
-        }
-    }
-    componentDidMount = () => {
-        fetch(`http://localhost:5001/api/patients`)
-            .then(res => res.json())
+        }).then(res => res.json())
             .then(data => {
                 console.log(data);
-                this.setState({ patients: data })
+                if (data.msg === "not found") {
+                    fetch('http://localhost:5001/api/patients', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(patient)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            window.localStorage.setItem('current', JSON.stringify(data[0]));
+                            document.getElementById('submit').click();
+                        })
+                        .catch(e => console.log(e))
+                }
+
+                else {
+                    alert('oops...\n this username and password are already in use...')
+                }
             })
-            .catch(e => console.log(e))
+            .catch(e => console.log(e));
+
     }
+    // componentDidMount = () => {
+    //     fetch(`http://localhost:5001/api/patients`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             this.setState({ patients: data })
+    //         })
+    //         .catch(e => console.log(e))
+    // }
     render() {
         return (
             <>
