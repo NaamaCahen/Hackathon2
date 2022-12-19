@@ -1,0 +1,18 @@
+Hi Naama!
+
+I loved your doctor's appointments project! It's functional, it's logical, and user-friendly.
+
+- A good practice would be to put all your application inside the App component and the App inside the index.js.
+I've noticed you're not using your App component.
+
+- I love your use of components, it's very clear and concise. 
+
+- Your filing system works fantastic, the server.js file is accurate and the requests to the db are simple and short.
+
+- Make sure to remove tests and console logs. I appreciate the use of comments!! :)
+
+- Let me see your css skills in your final project
+
+Overall, your project is really good, well displayed and user-friendly.
+
+Well done!
