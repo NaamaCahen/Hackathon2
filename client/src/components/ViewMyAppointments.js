@@ -14,7 +14,7 @@ export class ViewMyAppointments extends Component {
     }
     componentDidMount() {
         //get all my appointments from the server (from the datebase)
-        fetch(`http://localhost:5001/myAppointments/${this.state.currentPatient.p_id}`)
+        fetch(`/myAppointments/${this.state.currentPatient.p_id}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);

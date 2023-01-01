@@ -21,7 +21,7 @@ class Login extends React.Component {
         }
         //get the user
         
-        fetch('http://localhost:5001/api/login', {
+        fetch('/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

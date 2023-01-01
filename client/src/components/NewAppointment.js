@@ -12,7 +12,7 @@ class NewAppointment extends React.Component {
         }
     }
     componentDidMount = () => {
-        fetch(`http://localhost:5001/api/doctors`)
+        fetch(`/api/doctors`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ doctors: data })
@@ -68,7 +68,7 @@ class NewAppointment extends React.Component {
             time: dateTime
         }
         //check if the doctor is avalable at this time...
-        fetch(`http://localhost:5001/isAvailable`, {
+        fetch(`/isAvailable`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -100,7 +100,7 @@ class NewAppointment extends React.Component {
             dr_last_name: appointment.dr_last_name
         }
         console.log(firstLast);
-        fetch('http://localhost:5001/api/doctors/getId/', {
+        fetch('/api/doctors/getId/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -111,7 +111,7 @@ class NewAppointment extends React.Component {
             .then(data => {
                 console.log(data[0].dr_id);
                 id = data[0].dr_id
-                fetch('http://localhost:5001/myAppointments', {
+                fetch('/myAppointments', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -24,7 +24,7 @@ class Register extends React.Component {
             p_phone: form.p_phone.value
         }
         //checks if the username and password are in use
-        fetch(`http://localhost:5001/api/login`, {
+        fetch(`/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ class Register extends React.Component {
             .then(data => {
                 console.log(data);
                 if (data.msg === "not found") {
-                    fetch('http://localhost:5001/api/patients', {
+                    fetch('/api/patients', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ class Register extends React.Component {
 
     }
     // componentDidMount = () => {
-    //     fetch(`http://localhost:5001/api/patients`)
+    //     fetch(`/api/patients`)
     //         .then(res => res.json())
     //         .then(data => {
     //             console.log(data);

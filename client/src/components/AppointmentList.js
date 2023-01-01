@@ -12,7 +12,7 @@ export class AppointmentList extends Component {
 
     // componentDidMount() {
     //     //get all my appointments from the server (from the datebase)
-    //     fetch(`http://localhost:5001/myAppointments/${this.state.currentPatient.p_id}`)
+    //     fetch(`/myAppointments/${this.state.currentPatient.p_id}`)
     //         .then(res => res.json())
     //         .then(data => {
     //             console.log(data);
@@ -20,7 +20,7 @@ export class AppointmentList extends Component {
     //         }).catch(e => console.log(e))
     // }
     handleDelete = (id) => {
-        fetch(`http://localhost:5001/myAppointments/${id}`, {
+        fetch(`/myAppointments/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

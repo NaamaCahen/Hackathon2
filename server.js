@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { db } = require('./db.js');
 const dotenv = require('dotenv');
+const path=require('path');
 
 
 const app = express();
@@ -11,6 +12,11 @@ dotenv.config()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.static(path.join(__dirname,'./client/build')))
+
+app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname,'./client/build','index.html'))
+})
 
 app.listen(process.env.PORT, () => {
     console.log(`running on port: ${process.env.PORT}`);
