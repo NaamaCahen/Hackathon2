@@ -16,6 +16,7 @@ class NewAppointment extends React.Component {
             .then(res => res.json())
             .then(data => {
                 this.setState({ doctors: data })
+                console.log(this.state.doctors)
             })
             .catch(e => {
                 console.log(e);
@@ -67,7 +68,7 @@ class NewAppointment extends React.Component {
             dr_last_name: dr_last_name,
             time: dateTime
         }
-        //check if the doctor is avalable at this time...
+        //check if the doctor is available at this time...
         fetch(`/isAvailable`, {
             method: 'POST',
             headers: {
