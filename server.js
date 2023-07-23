@@ -13,7 +13,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-const __dirname=path.resolve();
 app.use(express.static(path.join(__dirname,'./client/build')))
 
 app.get('*',(req,res)=>{
