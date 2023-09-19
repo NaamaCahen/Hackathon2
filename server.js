@@ -80,7 +80,6 @@ app.get('/myAppointments/:id', (req, res) => {
     const { id } = req.params;
     const today=new Date();
     db('appointments')
-        .from('appointments')
         .innerJoin('doctors', 'appointments.dr_id', 'doctors.dr_id')
         .select('appointment_id', 'appointments.dr_id', 'p_id', 'appointment_time', 'doctors.dr_first_name', 'doctors.dr_last_name')
         .where({ p_id: id })
